@@ -10,6 +10,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 20px 60px;
   }
 
+  a {
+    text-decoration: none;
+    color: black;
+  }
 
 `
 
