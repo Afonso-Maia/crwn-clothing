@@ -2,9 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
+
+import { UserProvider } from '@contexts/UserContext'
 
 const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     font-family: 'Open Sans Condensed', sans-serif;
     padding: 20px 60px;
@@ -17,10 +23,19 @@ const GlobalStyle = createGlobalStyle`
 
 `
 
+const theme = {
+  subColor: 'grey',
+  mainColor: 'black',
+}
+
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
-    <App />
+    <UserProvider>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </UserProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )

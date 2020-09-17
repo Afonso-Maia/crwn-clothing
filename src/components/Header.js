@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import StyledHeader from '@styled/StyledHeader'
+import { auth } from '../firebase/firebase.utils'
+import { UserContext } from '@contexts/UserContext'
 
 import { ReactComponent as Logo } from '@assets/crown.svg'
 
-const Header = () => {
+const Header = ({ currentUser }) => {
+  const { user } = useContext(UserContext)
   return (
     <StyledHeader>
       <Link to="/" className="logo-container">
@@ -17,6 +20,15 @@ const Header = () => {
         <Link className="option" to="/contact">
           CONTACT
         </Link>
+        {user ? (
+          <div className={`option`} onClick={() => auth.signOut()}>
+            SIGN OUT
+          </div>
+        ) : (
+          <Link className="option" to="/signin">
+            SIGN IN
+          </Link>
+        )}
       </div>
     </StyledHeader>
   )
