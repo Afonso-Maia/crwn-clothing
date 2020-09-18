@@ -7,7 +7,7 @@ import StyledSignIn from '@styled/StyledSignIn'
 
 import FormInput from '@components/FormInput'
 import Button from '@components/Button'
-import { SignInWithGoogle } from '../firebase/firebase.utils'
+import { auth, SignInWithGoogle } from '../firebase/firebase.utils'
 import { UserContext } from '@contexts/UserContext'
 
 const validationSchema = yup.object({
@@ -26,9 +26,14 @@ const SignIn = () => {
   })
   const isEmailShrink = watch('email')?.length ? true : false
   const isPasswordShrink = watch('password')?.length ? true : false
-  const onSubmit = data => {
-    console.log(data)
-    reset()
+  const onSubmit = async data => {
+    const { email, password } = data
+    try {
+      await auth.signInWithEmailAndPassword(email, password)
+      reset()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (

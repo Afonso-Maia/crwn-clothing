@@ -1,26 +1,32 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import StyledHeader from '@styled/StyledHeader'
 import { auth } from '../firebase/firebase.utils'
-import { UserContext } from '@contexts/UserContext'
+
+import { shallowEqual, useSelector } from 'react-redux'
 
 import { ReactComponent as Logo } from '@assets/crown.svg'
 
-const Header = ({ currentUser }) => {
-  const { user } = useContext(UserContext)
+const Header = () => {
+  // const { user } = useContext(UserContext)
+  const currentUser = useSelector(state => state.user.currentUser, shallowEqual)
+  console.log(currentUser)
   return (
     <StyledHeader>
       <Link to="/" className="logo-container">
         <Logo className="logo" />
       </Link>
+
       <div className="options">
         <Link className="option" to="/shop">
           SHOP
         </Link>
+
         <Link className="option" to="/contact">
           CONTACT
         </Link>
-        {user.currentUser ? (
+
+        {currentUser ? (
           <div className={`option`} onClick={() => auth.signOut()}>
             SIGN OUT
           </div>

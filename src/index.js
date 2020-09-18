@@ -4,7 +4,10 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
+import { Provider } from 'react-redux'
 import { UserProvider } from '@contexts/UserContext'
+
+import store from './redux/store'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -32,9 +35,11 @@ ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
     <UserProvider>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </Provider>
     </UserProvider>
   </React.StrictMode>,
   document.getElementById('root')

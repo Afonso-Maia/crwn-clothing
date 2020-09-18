@@ -7,7 +7,8 @@
       "@pages/*": ["src/pages/*"],
       "@data/*": ["src/data/*"],
       "@assets/*": ["src/assets/*"],
-      "@contexts": ["src/contexts/*"]
+      "@contexts/*": ["src/contexts/*"],
+      "@redux/*": ["src/redux"]
     }
   }
 }
