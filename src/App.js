@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { auth } from './firebase/firebase.utils'
+import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 import { UserContext } from '@contexts/UserContext'
 
 import HomePage from '@pages/HomePage'
@@ -14,9 +14,21 @@ function App() {
   const { setUser } = useContext(UserContext)
 
   useEffect(() => {
-    let unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      setUser(user)
-      console.log(user)
+    let unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (!userAuth) {
+        setUser({ currentUser: userAuth })
+        return
+      }
+
+      const userRef = await createUserProfileDocument(userAuth)
+      userRef.onSnapshot(snapShot => {
+        setUser({
+          currentUser: {
+            id: snapShot.id,
+            ...snapShot.data(),
+          },
+        })
+      })
     })
     return () => {
       unsubscribeFromAuth()

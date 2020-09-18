@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers'
 
 import StyledSignIn from '@styled/StyledSignIn'
 
@@ -8,11 +10,22 @@ import Button from '@components/Button'
 import { SignInWithGoogle } from '../firebase/firebase.utils'
 import { UserContext } from '@contexts/UserContext'
 
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .email('Invalid email format')
+    .required('Email is required'),
+  password: yup.string().required('Password is required'),
+})
+
 const SignIn = () => {
   const { user } = useContext(UserContext)
 
-  const { register, handleSubmit, errors, reset, watch } = useForm()
+  const { register, handleSubmit, errors, reset, watch } = useForm({
+    resolver: yupResolver(validationSchema),
+  })
   const isEmailShrink = watch('email')?.length ? true : false
+  const isPasswordShrink = watch('password')?.length ? true : false
   const onSubmit = data => {
     console.log(data)
     reset()
@@ -29,24 +42,23 @@ const SignIn = () => {
           name="email"
           label="Email"
           shrinked={isEmailShrink}
-          ref={register({ required: true })}
+          ref={register}
         />
-        {errors.email && <span>This field is required</span>}
+        {errors.email && <span>{errors.email.message}</span>}
         <FormInput
           type="password"
           name="password"
           label="Password"
-          ref={register({ required: true })}
+          shrinked={isPasswordShrink}
+          ref={register}
         />
-        {errors.password && <span>This field is required</span>}
+        {errors.password && <span>{errors.password.message}</span>}
         <div className="buttons-group">
           <Button type="submit">Sign In</Button>
           <Button
-            className={`${user ? '' : 'google-sign-in'}`}
-            onClick={e => {
-              e.preventDefault()
-              SignInWithGoogle()
-            }}
+            className={`${user.currentUser ? '' : 'google-sign-in'}`}
+            type="button"
+            onClick={SignInWithGoogle}
           >
             Sign In With Google
           </Button>
