@@ -40,10 +40,20 @@ const SignUp = () => {
     ? true
     : false
 
-  const onSubmit = data => {
+  const onSubmit = async data => {
     if (errors.length) return
-    console.log(data)
-    reset()
+    const { displayName, email, password } = data
+
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      )
+      await createUserProfileDocument(user, { displayName })
+      reset()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (

@@ -3,12 +3,14 @@ import React from 'react'
 import SignIn from '@components/SignIn'
 import SignUp from '@components/SignUp'
 
+import StyledSignInSignUp from '@styled/StyledSignInSignUp'
+
 const SignInSignUp = () => {
   return (
-    <div className="sign-in-and-sign-up">
+    <StyledSignInSignUp>
       <SignIn />
       <SignUp />
-    </div>
+    </StyledSignInSignUp>
   )
 }
 
