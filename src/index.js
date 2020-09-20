@@ -5,7 +5,6 @@ import * as serviceWorker from './serviceWorker'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 import { Provider } from 'react-redux'
-import { UserProvider } from '@contexts/UserContext'
 
 import store from './redux/store'
 
@@ -34,13 +33,11 @@ const theme = {
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
-    <UserProvider>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
-      </Provider>
-    </UserProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 )

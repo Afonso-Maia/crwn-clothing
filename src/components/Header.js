@@ -6,11 +6,12 @@ import { auth } from '../firebase/firebase.utils'
 import { shallowEqual, useSelector } from 'react-redux'
 
 import { ReactComponent as Logo } from '@assets/crown.svg'
+import CartIcon from '@components/CartIcon'
+import CartDropdown from '@components/CartDropdown'
 
 const Header = () => {
-  // const { user } = useContext(UserContext)
   const currentUser = useSelector(state => state.user.currentUser, shallowEqual)
-  console.log(currentUser)
+  const isCartHidden = useSelector(state => state.cart.hidden, shallowEqual)
   return (
     <StyledHeader>
       <Link to="/" className="logo-container">
@@ -35,7 +36,9 @@ const Header = () => {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      {isCartHidden ? null : <CartDropdown />}
     </StyledHeader>
   )
 }

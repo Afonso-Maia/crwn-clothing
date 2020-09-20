@@ -2,10 +2,10 @@ import React from 'react'
 
 // PRESENTATIONAL - LAYOUT COMPONENTS
 import StyledHomepage from '@styled/StyledHomepage'
-import StyledDirectoryMenu from '../styled-components/StyledDirectoryMenu'
+import StyledDirectoryMenu from '@styled/StyledDirectoryMenu'
 
 // FUNCTIONAL - LOGIC COMPONENTS
-import MenuItem from '../components/MenuItem'
+import MenuItem from '@components/MenuItem'
 
 // DATA
 import SECTIONS_DATA from '@data/sections.data'

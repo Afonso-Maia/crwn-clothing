@@ -1,5 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
-import userReducer from './user/userReducer'
+import userReducer from './user/user.reducer'
+import cartReducer from './cart/cart.reducer'
 
-export default combineReducers({ user: userReducer })
+const rootReducer = combineReducers({ user: userReducer, cart: cartReducer })
+
+export default rootReducer

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers'
@@ -8,7 +8,7 @@ import StyledSignIn from '@styled/StyledSignIn'
 import FormInput from '@components/FormInput'
 import Button from '@components/Button'
 import { auth, SignInWithGoogle } from '../firebase/firebase.utils'
-import { UserContext } from '@contexts/UserContext'
+import { useSelector } from 'react-redux'
 
 const validationSchema = yup.object({
   email: yup
@@ -19,11 +19,10 @@ const validationSchema = yup.object({
 })
 
 const SignIn = () => {
-  const { user } = useContext(UserContext)
-
   const { register, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(validationSchema),
   })
+  const user = useSelector(state => state.user.currentUser)
   const isEmailShrink = watch('email')?.length ? true : false
   const isPasswordShrink = watch('password')?.length ? true : false
   const onSubmit = async data => {

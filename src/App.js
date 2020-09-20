@@ -4,7 +4,7 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 
 // import { UserContext } from '@contexts/UserContext'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux'
-import { setCurrentUser } from '@redux/user/userActions'
+import { setCurrentUser } from '@redux/user/user.actions'
 
 import HomePage from '@pages/HomePage'
 import HatsPage from '@pages/HatsPage'
@@ -28,12 +28,6 @@ function App() {
 
       const userRef = await createUserProfileDocument(userAuth)
       userRef.onSnapshot(snapShot => {
-        // setUser({
-        //   currentUser: {
-        //     id: snapShot.id,
-        //     ...snapShot.data(),
-        //   },
-        // })
         dispatch(
           setCurrentUser({
             id: snapShot.id,

@@ -6,7 +6,7 @@ const FormInput = forwardRef((props, ref) => {
   const { shrinked, ...inputProps } = props
   return (
     <StyledFormInput>
-      <input className="form-input" {...inputProps} ref={ref} />
+      <input {...inputProps} className="form-input" ref={ref} />
       {label ? (
         <label
           className={`${shrinked ? 'shrink' : ''} form-input-label`}
