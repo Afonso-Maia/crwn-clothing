@@ -6,6 +6,7 @@ const StyledCollectionitem = styled.div`
   flex-direction: column;
   height: 350px;
   align-items: center;
+  position: relative;
 
   .image {
     width: 100%;
@@ -13,6 +14,24 @@ const StyledCollectionitem = styled.div`
     background-size: cover;
     background-position: center;
     margin-bottom: 5px;
+  }
+
+  button {
+    width: 80%;
+    opacity: 0.7;
+    position: absolute;
+    top: 255px;
+    display: none;
+  }
+
+  &:hover {
+    .image {
+      opacity: 0.8;
+    }
+    button {
+      opacity: 0.85;
+      display: flex;
+    }
   }
 
   .collection-footer {
