@@ -3,19 +3,21 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 
 // import { UserContext } from '@contexts/UserContext'
-import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentUser } from '@redux/user/user.actions'
+import { selectCurrentUser } from '@redux/user/user.selectors'
 
 import HomePage from '@pages/HomePage'
 import HatsPage from '@pages/HatsPage'
 import ShopPage from '@pages/ShopPage'
 import SignInSignUp from '@pages/SignInSignUp'
+import CheckoutPage from '@pages/CheckoutPage'
 
 import Header from '@components/Header'
 
 function App() {
   // const { setUser } = useContext(UserContext)
-  const currentUser = useSelector(state => state.user.currentUser, shallowEqual)
+  const currentUser = useSelector(selectCurrentUser)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -48,6 +50,7 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/hats" component={HatsPage} />
         <Route exact path="/shop" component={ShopPage} />
+        <Route exact path="/checkout" component={CheckoutPage} />
         <Route
           exact
           path="/signin"

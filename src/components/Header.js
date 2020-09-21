@@ -1,17 +1,21 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import StyledHeader from '@styled/StyledHeader'
 import { auth } from '../firebase/firebase.utils'
 
-import { shallowEqual, useSelector } from 'react-redux'
+import { selectCartHidden } from '@redux/cart/cart.selectors'
+import { selectCurrentUser } from '@redux/user/user.selectors'
 
 import { ReactComponent as Logo } from '@assets/crown.svg'
 import CartIcon from '@components/CartIcon'
 import CartDropdown from '@components/CartDropdown'
 
+import StyledHeader from '@styled/StyledHeader'
+
 const Header = () => {
-  const currentUser = useSelector(state => state.user.currentUser, shallowEqual)
-  const isCartHidden = useSelector(state => state.cart.hidden, shallowEqual)
+  const currentUser = useSelector(selectCurrentUser)
+  const isCartHidden = useSelector(selectCartHidden)
+
   return (
     <StyledHeader>
       <Link to="/" className="logo-container">
