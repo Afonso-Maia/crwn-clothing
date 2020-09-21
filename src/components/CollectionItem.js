@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useDispatch } from 'react-redux'
-import { addItem } from '@redux/cart/cart.actions'
+import { addItemToCart } from '@redux/cart/cart.actions'
 
 import StyledCollectionItem from '@styled/StyledCollectionItem'
 import Button from '@components/Button'
@@ -16,7 +16,10 @@ const CollectionItem = ({ item }) => {
         <span className="name">{name}</span>
         <span className="price">{price}</span>
       </div>
-      <Button className="inverted" onClick={() => dispatch(addItem(item))}>
+      <Button
+        className="inverted"
+        onClick={() => dispatch(addItemToCart(item))}
+      >
         Add to cart
       </Button>
     </StyledCollectionItem>
