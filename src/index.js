@@ -5,8 +5,9 @@ import * as serviceWorker from './serviceWorker'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 
-import store from './redux/store'
+import { store, persistor } from './redux/store'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -35,7 +36,9 @@ ReactDOM.render(
     <GlobalStyle />
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <App />
+        <PersistGate persistor={persistor}>
+          <App />
+        </PersistGate>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,

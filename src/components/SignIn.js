@@ -9,6 +9,7 @@ import FormInput from '@components/FormInput'
 import Button from '@components/Button'
 import { auth, SignInWithGoogle } from '../firebase/firebase.utils'
 import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '@redux/user/user.selectors'
 
 const validationSchema = yup.object({
   email: yup
@@ -22,7 +23,7 @@ const SignIn = () => {
   const { register, handleSubmit, errors, reset, watch } = useForm({
     resolver: yupResolver(validationSchema),
   })
-  const user = useSelector(state => state.user.currentUser)
+  const currentUser = useSelector(selectCurrentUser)
   const isEmailShrink = watch('email')?.length ? true : false
   const isPasswordShrink = watch('password')?.length ? true : false
   const onSubmit = async data => {
@@ -60,7 +61,7 @@ const SignIn = () => {
         <div className="buttons-group">
           <Button type="submit">Sign In</Button>
           <Button
-            className={`${user.currentUser ? '' : 'google-sign-in'}`}
+            className={`${currentUser ? '' : 'google-sign-in'}`}
             type="button"
             onClick={SignInWithGoogle}
           >

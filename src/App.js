@@ -12,18 +12,17 @@ import HatsPage from '@pages/HatsPage'
 import ShopPage from '@pages/ShopPage'
 import SignInSignUp from '@pages/SignInSignUp'
 import CheckoutPage from '@pages/CheckoutPage'
+import CollectionPage from '@pages/CollectionPage'
 
 import Header from '@components/Header'
 
 function App() {
-  // const { setUser } = useContext(UserContext)
   const currentUser = useSelector(selectCurrentUser)
   const dispatch = useDispatch()
 
   useEffect(() => {
     let unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (!userAuth) {
-        // setUser({ currentUser: userAuth })
         dispatch(setCurrentUser(userAuth))
         return
       }
@@ -56,6 +55,7 @@ function App() {
           path="/signin"
           render={() => (currentUser ? <Redirect to="/" /> : <SignInSignUp />)}
         />
+        <Route path="/shop/:collectionId" component={CollectionPage} />
       </Switch>
     </BrowserRouter>
   )

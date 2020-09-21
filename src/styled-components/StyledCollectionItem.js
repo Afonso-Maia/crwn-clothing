@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const StyledCollectionitem = styled.div`
-  width: 22%;
+  width: 22vw;
   display: flex;
   flex-direction: column;
   height: 350px;

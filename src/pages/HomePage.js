@@ -8,18 +8,22 @@ import StyledDirectoryMenu from '@styled/StyledDirectoryMenu'
 import MenuItem from '@components/MenuItem'
 
 // DATA
-import SECTIONS_DATA from '@data/sections.data'
+import { useSelector } from 'react-redux'
+import { selectSections } from '@redux/directory/directory.selectors'
 
 const HomePage = () => {
+  const sections = useSelector(selectSections)
+
   return (
     <StyledHomepage>
       <StyledDirectoryMenu>
-        {SECTIONS_DATA.map(({ title, imageUrl, id, size }) => (
+        {sections.map(({ title, imageUrl, id, size, linkUrl }) => (
           <MenuItem
             key={id}
             title={title.toUpperCase()}
             imageUrl={imageUrl}
             size={size}
+            linkUrl={linkUrl}
           />
         ))}
       </StyledDirectoryMenu>
